@@ -1,0 +1,15 @@
+.style {
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+        color: #c82333;
+    } 
+
+
+    @media (max-width: 768px) {
+        &:hover {
+            color: #c82333;
+        } 
+    }
+}

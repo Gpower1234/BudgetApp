@@ -1,0 +1,13 @@
+@media (min-width: 992px) {
+    .table-responsive {
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+}
+
+@media (max-width: 500px) {
+    .table-responsive {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+}
