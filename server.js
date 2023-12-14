@@ -219,40 +219,73 @@ app.get('/logout', (req, res) => {
 });
 
 app.post('/create-budget', (req, res) => {
-    const sql = "INSERT INTO monthlybudget (`month`, `currency`) VALUES (?)";
+
+    const { year, month, currency } = req.body;
+
+    const checkIfExistQuery = 'SELECT * FROM monthlybudget WHERE month = ? AND year = ?';
+    con.query(checkIfExistQuery, [month, year], (error, results) => {
+        if (error) {
+            //throw error;
+            return res.json({status: 'Query error'})
+        }
+
+        if (results.length > 0) {
+            // Month and Year combination already exists, send an error response
+            return res.json({status: "Month and Year already exist."})
+        } else {
+            // if not exists, perform the insertion
+            const insertQuery = "INSERT INTO monthlybudget ( year, month, currency) VALUES (?, ?, ?)"
+            con.query(insertQuery, [ year, month, currency ], (insertError, insertResults) => {
+                if (insertError) {
+                    //throw insertError;
+                    return res.json({status: 'error'})
+                } else {
+                    return res.json({status: "success"})
+                }
+            })
+        }
+    })
+    {/*const sql = "INSERT INTO monthlybudget (`year`, `month`, `currency`) VALUES (?)";
     const values = [
+        req.body.year,
         req.body.month,
         req.body.currency,
     ]
+    console.log(values)
     con.query(sql, [values], (err, result) => {
         if (err) return res.json({Error: err, status: 'error'})
         return res.json({status: "success"})
-    })
+    })*/}
 });
 
 app.post('/add-budget', (req, res) => {
-    const sql = "INSERT INTO budget (`name`, `currency`, `estimated_amount`, `budget_month`) VALUES (?)";
+    const sql = "INSERT INTO budget (`name`, `currency`, `est_amount`, `month`, `year`) VALUES (?)";
     const values = [
         req.body.name,
         req.body.symbol,
         req.body.estimated_amount,
         req.body.budget_month,
+        req.body.year,
     ]
-    console.log(values)
     con.query(sql, [values], (err, result) => {
-        if (err) return res.json({Error: 'error'})
+        if (err) {
+            console.log(err)
+            return res.json({Error: 'error'})
+        }
         return res.json({status: 'success'})
     })
 })
 
 app.post('/add-expenses', (req, res) => {
-    const sql = "INSERT INTO expenses (`item_name`,  `currency`, `amount`, `expenses_month`) VALUES (?)";
+    const sql = "INSERT INTO expenses (`item_name`,  `currency`, `amount`, `month`, `year`) VALUES (?)";
     const values = [
         req.body.name,
         req.body.symbol,
         req.body.amount,
         req.body.expenses_month,
+        req.body.year
     ]
+    console.log(values)
     con.query(sql, [values], (err, result) => {
         if (err) return (console.log(err), res.json({Error: 'error'}))
         return res.json({status: 'success'})
@@ -260,7 +293,7 @@ app.post('/add-expenses', (req, res) => {
 })
 
 app.get('/monthly-budget', (req, res) => {
-    const sql = "SELECT * FROM monthlybudget"
+    const sql = "SELECT * FROM monthlybudget ORDER BY year DESC, month DESC" // ORDER BY year DESC, CASE WHEN month = 'December', THEN 1 WHEN month = 'November' THEN 2 WHEN month = 'october' THEN 3 WHEN month = 'september' THEN 4 WHEN month = 'August' THEN 5 WHEN month = 'July' THEN 6 WHEN month = 'october'
     con.query(sql, (err, result) => {
         if (err) return (console.log('Error fetching data', err), res.json({Error: 'Retrieval failed'}))
         return res.json({status: 'success', Result: result})
@@ -268,7 +301,7 @@ app.get('/monthly-budget', (req, res) => {
 });
 
 app.get('/budget', (req, res) => {
-    const sql = "SELECT * FROM budget"
+    const sql = "SELECT * FROM budget ORDER BY year, month DESC"
     con.query(sql, (err, result) => {
         if (err) return (console.log('Error fetching data', err), res.json({Error: 'Retrieval failed'}))
         return res.json({status: 'success', Result: result})
@@ -276,7 +309,7 @@ app.get('/budget', (req, res) => {
 });
 
 app.get('/expenses', (req, res) => {
-    const sql = "SELECT * FROM expenses"
+    const sql = "SELECT * FROM expenses ORDER BY year, month DESC"
     console.log('queried')
     con.query(sql, (err, result) => {
         if (err) return (console.log('Error fetching data', err), res.json({Error: 'Retrieval failed'}))
@@ -284,7 +317,7 @@ app.get('/expenses', (req, res) => {
     })
 });
 
-app.get('/monthly-budget/:month', (req, res) => {
+app.get('/monthly-budget/:month/:year', (req, res) => {
     const id = req.params.month
     const sql = "SELECT * FROM monthlybudget where month = ?"
     con.query(sql, [id], (err, result) => {
@@ -293,10 +326,10 @@ app.get('/monthly-budget/:month', (req, res) => {
     })
 });
 
-app.get('/budget/:month', (req, res) => {
-    const id = req.params.month
-    const sql = "SELECT * FROM budget where budget_month = ?"
-    con.query(sql, [id], (err, result) => {
+app.get('/budget/:month/:year', (req, res) => {
+    const {month, year} = req.params;
+    const sql = "SELECT * FROM budget where month = ? AND year = ?"
+    con.query(sql, [month, year], (err, result) => {
         if (err) return (console.log(err), res.json({status: 'Error', Error: 'Server Error'}))
         return res.json({status: 'success', Result: result})
     })
@@ -320,9 +353,9 @@ app.get('/expenseID/:id', (req, res) => {
     })
 });
 
-app.get('/expenses/:month', (req, res) => {
+app.get('/expenses/:month/:year', (req, res) => {
     const id = req.params.month
-    const sql = "SELECT * FROM expenses where expenses_month = ?"
+    const sql = "SELECT * FROM expenses where month = ?"
     con.query(sql, [id], (err, result) => {
         if (err) return (console.log('Error fetching data', err), res.json({Error: 'Retrieval failed'}))
         return res.json({status: 'success', Result: result})
@@ -333,7 +366,7 @@ app.put('/update-budget/:id', (req, res) => {
     const id = req.params.id
     const { name, estimated_amount } = req.body
 
-    con.query('UPDATE budget SET name = ?, estimated_amount = ? WHERE id = ?', [name, estimated_amount, id], (error, results) => {
+    con.query('UPDATE budget SET name = ?, est_amount = ? WHERE id = ?', [name, estimated_amount, id], (error, results) => {
         if (error) {
             console.error(error)
             res.status(500).send('Error updating budget')
@@ -341,7 +374,7 @@ app.put('/update-budget/:id', (req, res) => {
             return res.json({status: "success"})
         }
     })
-})
+});
 
 app.put('/update-expense/:id', (req, res) => {
     const id = req.params.id
