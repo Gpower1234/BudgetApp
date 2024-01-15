@@ -66,15 +66,15 @@ export default function DeleteExpense() {
         }
 
         {success && 
-          <div className='alert alert-success alert-dismissible fade show'>
-            {success && <p className='text-success text-center'>{success}</p>}
+          <div className='alert alert-success alert-dismissible fade show' style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
+            {success && <p className='text-center' style={{ color: '#001f3f', fontWeight: 'bold' }}>{success}</p>}
             {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
           </div>
         }
 
         {error && 
-            <div className='alert alert-danger alert-dismissible fade show'>
-            {error && <p className='text-danger text-center'>{error}</p>}
+            <div className='alert alert-danger alert-dismissible fade show' style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
+            {error && <p className='text-center' style={{ color: '#f00', fontWeight: 'bold' }}>{error}</p>}
             {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
             </div>
         }

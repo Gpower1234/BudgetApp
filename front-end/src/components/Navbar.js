@@ -18,19 +18,23 @@ const Navbar = () => {
     return (
         <Nav>
             <Logo href='/'>Logo</Logo>
-            <MenuLinks isOpen={isOpen}>
-                <MenuLink>
+            <MenuLinks isOpen={isOpen} className='menulinks'>
+                <MenuLink className='link'>
                     <Link to='/'  className='style'>Home</Link>
                 </MenuLink>
-                <MenuLink>
+                <MenuLink className='link'>
                     <Link to='/dashboard' className='style'>Dashboard</Link>
                 </MenuLink>
-                <MenuLink>
+                <MenuLink className='link'>
                     <Link to='/monthly-budget' className='style'>Budgets</Link>
                 </MenuLink>
-                <MenuLink>
+                <MenuLink className='link'>
                     <Link to='/create-monthly-budget' className='style'>Create</Link>
                 </MenuLink>
+                <MenuLink>
+                    <Link to='/FAQ' className='style'>FAQ</Link>
+                </MenuLink>
+
                 {user == null ? (
                     <MenuLink>
                         <Link to='/sign-in' className='style'><Button>Sign In</Button></Link>
@@ -103,7 +107,8 @@ cursor: pointer;
 @media (max-width: 768px) {
     padding: 1rem;
     width: 100%;
-    display: table;
+    display: flex;
+    justify-content: center;
 
     &:hover {
         color: #999;

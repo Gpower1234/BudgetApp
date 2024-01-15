@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import Popper from 'popper.js';
+import { AuthProvider } from './components/AuthContext';
 
 window.jQuery = $;
 window.Popper = Popper;
@@ -16,7 +17,9 @@ window.Popper = Popper;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </React.StrictMode>
 );
 

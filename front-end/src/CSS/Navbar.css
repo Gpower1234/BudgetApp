@@ -3,13 +3,20 @@
     text-decoration: none;
 
     &:hover {
-        color: #c82333;
+        color: #fff;
     } 
 
 
     @media (max-width: 768px) {
         &:hover {
-            color: #c82333;
+            color: #fff;
         } 
     }
 }
+
+@media (max-width: 767px) {
+    .link {
+        margin-bottom: -15px;
+    }
+}
+

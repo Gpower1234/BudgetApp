@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 
 export default function UpdateBudget() {
   const {id} = useParams()
   const [isLoading, setIsLoading] = useState(false)
+  const [redirecting, setRedirecting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [budgetData, setBudgetData] = useState({
@@ -18,6 +19,8 @@ export default function UpdateBudget() {
     estimated_amount: '',
   })
 
+  const navigate = useNavigate();
+
   const name = getData.length > 0 ? getData[0].name : '';
 
   const estimated_amount = getData.length > 0 ? getData[0].est_amount : '';
@@ -29,12 +32,17 @@ export default function UpdateBudget() {
 
     axios.put('http://localhost:5001/update-budget/'+id, budgetData)
     .then(res => {
-      console.log(getData)
       if (res.data.status === 'success') {
         setTimeout(() => {
           setIsLoading(false)
           setSuccess('Budget Updated')
+          setRedirecting(true)
+          setTimeout(() => {
+            setRedirecting(false)
+            navigate('/')
+          }, 3000)
         }, 3000)
+        
       } else {
         setIsLoading(false)
         setError('Error updating budget')
@@ -71,9 +79,18 @@ export default function UpdateBudget() {
           </div>
         }
 
+        {redirecting &&
+          <div className='col-md-3 col-8' style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '9999'}}>
+              <div style={{ display: 'grid', placeItems: 'center'}}>
+                {redirecting && <MoonLoader size={30} color={'#001f3f'} />}
+                {redirecting && <p style={{ color: '#001f3f'}}>Redirecting...</p>}
+              </div>
+          </div>
+        }
+
         {success && 
-          <div className='alert alert-success alert-dismissible fade show'>
-            {success && <p className='text-success text-center'>{success}</p>}
+          <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
+            {success && <p className='text-center'  style={{ color: '#001f3f', fontWeight: 'bold' }}>{success}</p>}
             {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
           </div>
         }

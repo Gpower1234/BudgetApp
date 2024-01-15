@@ -200,3 +200,126 @@ mongoose.connect("mongodb://localhost:27017/budgeting", {
         console.error('Failed to connect to the database', err)
     });
 */
+
+JWT_SECRET = jdhdhd-kjfjdhrhrerj-uurhr-jjge
+REFRESH_TOKEN_SECRET = fgkjddshfdjh773bdjsj84-jdjd774
+SESSION_EXPIRY = 60 * 15
+REFRESH_TOKEN_EXPIRY = 60 * 60 * 24 * 30
+MONGO_DB_CONNECTION_STRING = mongodb://127.0.0.1:27017/mern_auth
+COOKIE_SECRET = jhdshhds884hfhhs-ew6dhjd
+WHITELISTED_DOMAINS = http://localhost:3000
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+async function verifyGoogleToken(token) {
+ try {
+   const ticket = await client.verifyIdToken({
+     idToken: token,
+     audience: GOOGLE_CLIENT_ID,
+   });
+   return { payload: ticket.getPayload() };
+ } catch (error) {
+   return { error: "Invalid user detected. Please try again" };
+ }
+}
+
+app.post("/signup", async (req, res) => {
+    try {
+      // console.log({ verified: verifyGoogleToken(req.body.credential) });
+      if (req.body.credential) {
+        const verificationResponse = await verifyGoogleToken(req.body.credential);
+  
+        if (verificationResponse.error) {
+          return res.status(400).json({
+            message: verificationResponse.error,
+          });
+        }
+  
+        const profile = verificationResponse?.payload;
+  
+        DB.push(profile);
+  
+        res.status(201).json({
+          message: "Signup was successful",
+          user: {
+            firstName: profile?.given_name,
+            lastName: profile?.family_name,
+            picture: profile?.picture,
+            email: profile?.email,
+            token: jwt.sign({ email: profile?.email }, "myScret", {
+              expiresIn: "1d",
+            }),
+          },
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        message: "An error occurred. Registration failed.",
+      });
+    }
+  });
+
+app.post("/login", async (req, res) => {
+    try {
+        if (req.body.credential) {
+        const verificationResponse = await verifyGoogleToken(req.body.credential);
+        if (verificationResponse.error) {
+            return res.status(400).json({
+            message: verificationResponse.error,
+            });
+        }
+
+        const profile = verificationResponse?.payload;
+
+        const existsInDB = DB.find((person) => person?.email === profile?.email);
+
+        if (!existsInDB) {
+            return res.status(400).json({
+            message: "You are not registered. Please sign up",
+            });
+        }
+
+        res.status(201).json({
+            message: "Login was successful",
+            user: {
+            firstName: profile?.given_name,
+            lastName: profile?.family_name,
+            picture: profile?.picture,
+            email: profile?.email,
+            token: jwt.sign({ email: profile?.email }, process.env.JWT_SECRET, {
+                expiresIn: "1d",
+            }),
+            },
+        });
+        }
+    } catch (error) {
+        res.status(500).json({
+        message: error?.message || error,
+        });
+    }
+});
+
+let DB = [];
+
+
+app.post('/', async function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'https://localhost:3000');
+    res.header('Referrer-Policy', 'no-referrer-when-downgrade');
+
+    const redirectUrl = 'http://127.0.0.1:5000/oauth';
+
+    const oAuth2Client = new OAuth2Client(
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET,
+        redirectUrl,
+    );
+
+    const authorizeUrl = oAuth2Client.generateAuthUrl({
+        access_type: 'offline',
+        scope: 'https://www.googleapis.com/auth/userinfo.profile openid',
+        prompt: 'consent'
+    });
+
+    res.json({url:authorizeUrl})
+})

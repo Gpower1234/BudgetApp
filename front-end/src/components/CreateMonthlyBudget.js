@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 
 export default function CreateMonthlyBudget() {
@@ -12,14 +12,7 @@ export default function CreateMonthlyBudget() {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [months, setMonths] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
-  console.log(months[selectedMonth])
   const [symbol, setSymbol] = useState('')
-
-  {/*const [data, setData] = useState({
-    year: '',
-    month: '',
-    currency: '',
-  })*/}
 
   const navigate = useNavigate();
 
@@ -55,27 +48,6 @@ export default function CreateMonthlyBudget() {
       setMonths(monthsForSelectedYear)
   }, [selectedYear])
 
- {/* const generateMonthOptions = () => {
-    const today = new Date();
-    const options = []
-
-    for (let i=0; i<9; i++) {
-      const date = new Date(today.getFullYear(), today.getMonth() + i);
-      const month = date.toLocaleString('default', { month: 'long'});
-      const year = date.getFullYear();
-      const optionValue = `${month}-${year}`;
-      options.push(
-        <option key={optionValue} value={optionValue}>
-          {month} {year}
-        </option>
-      );
-    }
-    return options;
-  };*/}
-
-  const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -89,12 +61,6 @@ export default function CreateMonthlyBudget() {
       currency: symbol
     }
 
-    console.log(formData)
-
-    {/*const formdata = new FormData();
-    formdata.append('month', data.month);
-    formdata.append('budgetName', data.currency);
-    formdata.append('amount', data.total_amount);*/}
     axios.post('http://localhost:5001/create-budget', formData)
     .then(res => {
       if (res.data.status === 'success') {
@@ -107,24 +73,13 @@ export default function CreateMonthlyBudget() {
             setError(formData.month + ' ' + formData.year + ' ' + 'budget already exists')
             setIsLoading(false) 
       }
-      
-
-      {/*if (res.data.status === 'success') {
-        setSuccess(res.data.status)
-        setIsLoading(false)
-        navigate('/monthly-budget')
-      } else {
-        setError('Error creating budget')
-      }*/}
     })
   }
 
   return (
     <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh'}}>
-        <div className='row justify-content-center'>
-          <div className='text-danger text-center mb-4'>
-              {error && error}
-          </div>
+        <div className='row justify-content-center' style={{ paddingTop: '30px' }}>
+          
           <div className='text-success text-center'>
               {success && success}
           </div>
@@ -142,7 +97,9 @@ export default function CreateMonthlyBudget() {
             <div style={{display: 'flex', justifyContent: 'center'}}>
               <h5 style={{fontFamily: 'monospace', color: '#001f3f'}}>CREATE MONTHLY BUDGET</h5>
             </div> 
-            
+            <div className='text-danger text-center mb-4'>
+              {error && error}
+            </div>
             <br /> 
             <form onSubmit={handleSubmit}>
               <div className='mb-3'>

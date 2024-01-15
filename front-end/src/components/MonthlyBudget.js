@@ -1,21 +1,23 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-//import '../CSS/MonthlyBudget.css';
 
 export default function MonthlyBudget() {
   const [data, setData] = useState([]);
-  console.log(data)
+  const [visibleItems, setVisibleItems] = useState(10)
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const successMessage = query.get('message')
 
+  const loadMoreData = () => {
+    setVisibleItems(prevVisibleItems => prevVisibleItems + 10);
+  }
+
   useEffect(() => {
-    axios.get('http://localhost:5001/monthly-budget')
+    axios.get('http://localhost:5001/monthly-budgets')
     .then(res => {
       if (res.data.status === 'success') {
         setData(res.data.Result)
-        //console.log(setData)
       } if (res.data.Error) {
         console.log(Error)
       } 
@@ -29,24 +31,24 @@ export default function MonthlyBudget() {
         <button type='button' className='btn-close' data-bs-dismiss='alert'></button>
       </div>
       }
-      <div className='table-responsive'>
+      <div className='container'>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center', justifyContent: 'center'}}>
           <h5 style={{fontFamily: 'monospace', color: '#fff', fontWeight: 'bold', margin: '0 0 50px 0'}}>BUDGETS</h5>
-          <table style={{ borderCollapse: 'separate', borderSpacing: '15px'}}>
+          <table className='table table responsive' style={{ borderCollapse: 'separate', borderSpacing: '15px'}}>
             <thead>
               <tr style={{ color: '#87ceeb'}}>
-                <th className='col-sm'>YEAR</th>
-                <th className='col-sm'>MONTH</th>
-                <th className='col-sm' >DETAILS</th>
+                <th className='col-lg' style={{ fontSize: '12px'}}>YEAR</th>
+                <th className='col-lg' style={{ fontSize: '12px'}}>MONTH</th>
+                <th className='col-lg' style={{ fontSize: '12px'}} >DETAILS</th>
               </tr>
             </thead>
             <tbody style={{ color: '#aaa' }}>
-              {data.map((budget, index) => {
+              {data.slice(0, visibleItems).map((budget, index) => {
                 return <tr key={index}>
                     <td>{budget.year}</td>
                     <td>{budget.month}</td>
                     <td>
-                      <Link to={'/budget-detail/' + budget.month + '/' + budget.year} style={{textDecoration: 'none', color: '#87ceeb'}}>view more</Link>
+                      <Link to={'/budget-detail/' + budget.month + '/' + budget.year} style={{textDecoration: 'none', color: '#00f'}}>view more</Link>
                     </td>
                 </tr>
               })}
@@ -54,6 +56,9 @@ export default function MonthlyBudget() {
             </tbody>
         
         </table>
+        {visibleItems < data.length && (
+          <button onClick={loadMoreData} className='btn' style={{ backgroundColor: '#fff', fontSize: '12px', fontWeight: 'bold'}}>Load More</button>
+        )}
       
         </div>
         

@@ -1,87 +1,42 @@
 import React, {useState} from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import '../CSS/Login.css';
 
 export const Register = () => {
-  const [username, setUsername] = useState("");
-  //const [firstName, setFirstName] = useState("");
-  //const [lastName, setLastName] = useState(""); 
-  //const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  //const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
-
-  const [formData, setFormData] = useState({ username: "", password: ""});
-  const handleInputChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+  const handleGoogleSignUp = () => {
+    window.location.href = 'http://localhost:5001/auth/google';
+    //axios.post('http://localhost:5001/api/googlesignup')
   }
 
-  const navigate = useNavigate();
-  
-{/*
-  function handleChangeUsername(event) {
-    setUsername(event.target.value)
-  }
-
-  function handleChangeFirstName(event) {
-    setFirstName(event.target.value)
-  }
-
-  function handleChangeLastName(event) {
-    setLastName(event.target.value)
-  }
-
-  function handleChangeEmail(event) {
-    setEmail(event.target.value)
-  }
-
-  function handleChangePassword(event) {
-    setPassword(event.target.value)
-  }
-
-  function handleChangeConfirmPassword(event) {
-    setConfirmPassword(event.target.value)
-  }
-*/}
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post('http://localhost:5001/register', formData)
-    .then((response) => {
-      console.log(response.data);
-      navigate('/sign-in')
-    }).catch((err) => {
-      console.error(err);
-    });
-  }
   return (
-    <div className='container'>
-      <div className='row justify-content-center'>
-        <div className='col-md-4 col-8'>
-        <h4 style={{ color: 'red', fontFamily: 'monospace'}} className='text-center'>Sign <b className='text-danger'style={{fontFamily: 'monospace'}}>Up</b></h4>
-          <form onSubmit={handleSubmit}>
-            <div className='mb-3'>
-              <label style={{display:username ? 'block' : 'none', color: '#dc3545'}} htmlFor='email'className='form-label'>Username</label>
-              <input type='text' className='form-control' id='username' placeholder='Username' name='username' onChange={handleInputChange} />
+    <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh' }}> 
+      <div style={{ paddingTop: '50px', display: 'flex', justifyContent: 'center' }}>
+        <button className="gsi-material-button" onClick={handleGoogleSignUp}>
+          <div className="gsi-material-button-state"></div>
+          <div className="gsi-material-button-content-wrapper">
+            <div className="gsi-material-button-icon">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ display: 'block'}}>
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                <path fill="none" d="M0 0h48v48H0z"></path>
+              </svg>
             </div>
-            
-            
-            
-            <div className='mb-3'>
-              <label style={{display:password ? 'block' : 'none', color: '#dc3545'}}  htmlFor='password'className='form-label'>Password</label>
-              <input type='password' className='form-control' id='password' placeholder='Password' name='password' onChange={handleInputChange} />
-            </div>
-            
-            <p>Already registered? <Link to='/sign-in' style={{ color: '#dc3545', textDecoration: 'none' }}>Sign In</Link></p>
-            <div className='text-center'>
-              <button type='submit' className='btn btn-danger'>Submit</button>
-            </div>
-          </form>
-          {success && <p>Signup successful!</p>}
-          {error && <p>Error: {error}</p>}
-        </div>
+            <span className="gsi-material-button-contents">Sign up with Google</span>
+            <span style={{display: 'none'}}>Sign up with Google</span>
+          </div>
+        </button>
+      </div>
+      <div style={{ paddingTop: '50px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
+        <p>Created an account before ?</p>
+        <button className='btn' style={{ backgroundColor: '#fff', paddingBottom: '0px' }}>
+          <Link to='/sign-in' style={{ textDecoration: 'none' }}>
+            <p style={{ fontSize: '14px', color: '#000' }}>Sign In</p>
+          </Link>
+        </button>
       </div>
     </div>
-  );
+  )
 }
