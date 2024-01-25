@@ -1,9 +1,10 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import {Link} from 'react-router-dom';
 import '../CSS/Navbar.css';
 //import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from '../components/NavbarElement';
 import styled from 'styled-components'
 import { FaTimes, FaBars } from 'react-icons/fa'
+import { useAuth } from './AuthContext';
 //import axios from 'axios';
 
 const Navbar = () => {
@@ -12,12 +13,11 @@ const Navbar = () => {
         setIsopen(!isOpen)
     };
 
-    const [user, setUser] = useState(null);
-
+    const { user } = useAuth();
     
     return (
         <Nav>
-            <Logo href='/'>Logo</Logo>
+            <Logo href='/'>BudgetApp</Logo>
             <MenuLinks isOpen={isOpen} className='menulinks'>
                 <MenuLink className='link'>
                     <Link to='/'  className='style'>Home</Link>
@@ -25,9 +25,11 @@ const Navbar = () => {
                 <MenuLink className='link'>
                     <Link to='/dashboard' className='style'>Dashboard</Link>
                 </MenuLink>
+                
                 <MenuLink className='link'>
                     <Link to='/monthly-budget' className='style'>Budgets</Link>
                 </MenuLink>
+
                 <MenuLink className='link'>
                     <Link to='/create-monthly-budget' className='style'>Create</Link>
                 </MenuLink>
@@ -41,7 +43,7 @@ const Navbar = () => {
                     </MenuLink>
                 ) : (
                     <MenuLink>
-                        <Link to='/logout' className='style'><Button>Sign Out</Button></Link>
+                        <Link to='/sign-out' className='style'><Button>Sign Out</Button></Link>
                     </MenuLink>
                 )
                 }

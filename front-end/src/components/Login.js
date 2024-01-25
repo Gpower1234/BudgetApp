@@ -1,22 +1,11 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import PrivateRoutes from './PrivateRoutes';
-import { MoonLoader } from 'react-spinners';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import '../CSS/Login.css';
 import { useAuth } from './AuthContext';
-//import './styles/login.css';
-
 
 export const SignIn = () => {
 
   const auth = useAuth();
-  //const navigate = useNavigate();
-
-  {/*const handleLoginWithGoogle = async () => {
-    //window.location.href = 'http://localhost:5001/auth/google'; // Replace with your backend URL
-    login();
-  };*/}
 
   return (
     <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh' }}> 

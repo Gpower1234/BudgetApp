@@ -5,13 +5,14 @@ import { MoonLoader } from 'react-spinners';
 //import PieChart from './PieChart'
 import { Doughnut, Bar } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
+import { useAuth } from './AuthContext';
 //import faker from 'faker';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, ArcElement, Tooltip, Legend);
 
 export default function BudgetDetail() {
   const {month, year} = useParams();
-  //const {year} = useParams();
+  const { user } = useAuth();
   const [visibleBudgets, setVisibleBudgets] = useState(10)
   const [visibleExpenses, setVisibleExpenses] = useState(10)
   const [monthlyBudgetDetail, setMonthlyBudgetDetail] = useState([]);
@@ -55,6 +56,7 @@ export default function BudgetDetail() {
   };
   
   const [budgetData, setBudgetData] = useState({
+    user: user.email,
     name: '',
     estimated_amount: '',
     symbol: '',
@@ -63,6 +65,7 @@ export default function BudgetDetail() {
   })
 
   const [expensesData, setExpensesData] = useState({
+    user: user.email,
     item_name: '',
     amount: '',
     symbol: '',
@@ -185,14 +188,14 @@ export default function BudgetDetail() {
             window.location.reload(true)
           }, 1500)
         }, 3000)
-        
-        
       } else {
         setTimeout(() => {
           setIsLoading(false)
           setError('Error adding budget')
-        })
-        setError('Error adding budget')
+          setTimeout(() => {
+            window.location.reload(true)
+          }, 1500)
+        }, 3000)
       }
     }).catch(err => {'Error in server'})
   }
@@ -221,8 +224,10 @@ export default function BudgetDetail() {
         setTimeout(() => {
           setIsLoading(false)
           setError('Error adding expenses')
-        })
-        setError('Error adding expenses')
+          setTimeout(() => {
+            window.location.reload(true)
+          }, 1500)
+        }, 3000)
       }
     }).catch(err => {'Error in server'})
   }
@@ -260,7 +265,7 @@ export default function BudgetDetail() {
   
 
   return (
-    <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '300vh' }}>
+    <div style={{ background: 'linear-gradient(to bottom, #001f3f, #000)' }}>
       {isLoading &&
         <div className='col-md-3 col-8' style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
           <div style={{ display: 'grid', placeItems: 'center' }}>
@@ -271,7 +276,7 @@ export default function BudgetDetail() {
       }
 
       {success && 
-        <div className='alert alert-success alert-dismissible fade show' style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
+        <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
           {success && <p className='text-center' style={{ color: '#001f3f', fontWeight: 'bold' }}>{success}</p>}
         </div>
       }

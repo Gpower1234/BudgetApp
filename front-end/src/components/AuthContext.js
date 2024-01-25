@@ -7,6 +7,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('')
+
 
   useEffect(() => {
     // Check authentication status on initial load
@@ -36,8 +38,11 @@ export const AuthProvider = ({ children }) => {
       // Check if the logout request was successful
       if (response.status === 200) {
         setUser(null);
+        window.location.href = '/sign-in';
       } else {
         // Handle unsuccessful logout
+        setErrorMessage('Failed to logout')
+
       }
     } catch (error) {
       console.error('Logout failed:', error);

@@ -6,7 +6,6 @@ import { MoonLoader } from 'react-spinners';
 export default function UpdateBudget() {
   const {id} = useParams()
   const [isLoading, setIsLoading] = useState(false)
-  const [redirecting, setRedirecting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [budgetData, setBudgetData] = useState({
@@ -36,16 +35,20 @@ export default function UpdateBudget() {
         setTimeout(() => {
           setIsLoading(false)
           setSuccess('Budget Updated')
-          setRedirecting(true)
           setTimeout(() => {
-            setRedirecting(false)
             navigate('/')
           }, 3000)
         }, 3000)
         
       } else {
         setIsLoading(false)
-        setError('Error updating budget')
+        setTimeout(() => {
+          setIsLoading(false)
+          setError('Error updating budget')
+          setTimeout(() => {
+            navigate('/')
+          }, 3000)
+        }, 3000)
       }
     })
   };
@@ -54,9 +57,19 @@ export default function UpdateBudget() {
     axios.get('http://localhost:5001/budgetID/'+id)
     .then(res => {
       if (res.data.status === 'success') {
-        setGetData(res.data.Result)
+        return setGetData(res.data.Result)
       } if (res.data.status === 'Error') {
-        setError(res.data.Error)
+        setError('SERVER ERROR! Redirecting...')
+        setTimeout(() => {
+          navigate('/')
+        }, 3000)
+      } if (res.data.status === 'null' ) {
+        return setError('No budget with such ID found for this user')
+      } else {
+        setError('SERVER ERROR! Redirecting...')
+        setTimeout(() => {
+          navigate('/')
+        }, 3000)
       }
     }).catch(err => {'Error fetching data'})
   }, [])
@@ -79,26 +92,16 @@ export default function UpdateBudget() {
           </div>
         }
 
-        {redirecting &&
-          <div className='col-md-3 col-8' style={{position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: '9999'}}>
-              <div style={{ display: 'grid', placeItems: 'center'}}>
-                {redirecting && <MoonLoader size={30} color={'#001f3f'} />}
-                {redirecting && <p style={{ color: '#001f3f'}}>Redirecting...</p>}
-              </div>
-          </div>
-        }
 
         {success && 
           <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
             {success && <p className='text-center'  style={{ color: '#001f3f', fontWeight: 'bold' }}>{success}</p>}
-            {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
           </div>
         }
 
         {error && 
-          <div className='alert alert-danger alert-dismissible fade show'>
+          <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
             {error && <p className='text-danger text-center'>{error}</p>}
-            {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
           </div>
         }
 

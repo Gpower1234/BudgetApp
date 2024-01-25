@@ -33,8 +33,6 @@ export const Dashboard = () => {
   
   const { user } = useAuth();
 
-  const navigate = useNavigate();
-
   const [budget, setBudget] = useState([])
   const [expenses, setExpenses] = useState([])
   const [ error, setError] = useState('')
@@ -42,6 +40,23 @@ export const Dashboard = () => {
   const [dataFetched, setDataFetched] = useState(false); 
 
   const currency = budget.length > 0 ? budget[0].currency : '';
+
+  const [greeting, setGreeting] = useState('')
+
+  useEffect(() => {
+    const determineGreeting = () => {
+      const currentHour = new Date().getHours();
+
+      if (currentHour >= 1 && currentHour < 12) {
+        setGreeting('Good morning')
+      } else if (currentHour >= 12 && currentHour < 18) {
+        setGreeting('Good afternoon')
+      } else {
+        setGreeting('Good evening')
+      }
+    };
+    determineGreeting()
+  }, [])
 
   useEffect(() => {
     axios.get('http://localhost:5001/budget')
@@ -102,9 +117,6 @@ export const Dashboard = () => {
     return groupedExpensesData;
   };
 
-  //const budgetAmounts = budgetDetail.map(item => parseInt(item.est_amount, 10))
-  //const totalBudgetAmount = budgetAmounts.reduce((total, amount) => total + amount, 0)
-
   const calculateBudgetTotal = (group) => {
     const budgetAmounts = group.map(item => parseInt(item.est_amount, 10))
     return budgetAmounts.reduce((total, amount) => total + amount, 0)
@@ -114,10 +126,6 @@ export const Dashboard = () => {
     const expensesAmounts = group.map(item => parseInt(item.amount, 10))
     return expensesAmounts.reduce((total, amount) => total + amount, 0)
   }
-
-  {/*datasets: [
-    {
-    data: [balance, totalExpensesAmount],*/}
 
   const chartData = {
     labels: Object.keys(groupBudgetData()).map(key => `${groupBudgetData()[key][0].month}-${groupBudgetData()[key][0].year}`),
@@ -135,19 +143,14 @@ export const Dashboard = () => {
       },
     ]
   }
-
-  if (!user) {
-    navigate('/sign-in')
-  }
   
   return (
     <div className='dashboard-container' style={{ height: '100vh' }}>
 
       <div style={{ display: 'flex', flexDirection: 'column'}}>
         <div className='' style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px'}}>
-            <h4>Hello Anonymous</h4>
-          </div>
-          {/*<h2>Bar Chart for {selectedYear}</h2>*/}
+            <h6 style={{ color: '#87ceeb'}}>{greeting}, {user.name}</h6>
+        </div>
 
           <div style={{width: '500px', height: '400px', margin: 'auto'}}>
             <h6 style={{display: 'flex', justifyContent: 'center'}}>Budget Overview</h6>

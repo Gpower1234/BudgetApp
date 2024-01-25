@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
+import { useAuth } from './AuthContext';
 
 export default function CreateMonthlyBudget() {
   //const [selectedMonth, setSelectedMonth] = useState('');
@@ -13,6 +14,9 @@ export default function CreateMonthlyBudget() {
   const [months, setMonths] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
   const [symbol, setSymbol] = useState('')
+  const [message, setMessage] = useState('')
+
+  const { user } = useAuth();
 
   const navigate = useNavigate();
 
@@ -56,6 +60,7 @@ export default function CreateMonthlyBudget() {
     setIsLoading(true)
 
     const formData = {
+      user: user.email,
       year: selectedYear,
       month: months[selectedMonth],
       currency: symbol
@@ -65,10 +70,13 @@ export default function CreateMonthlyBudget() {
     .then(res => {
       if (res.data.status === 'success') {
         setTimeout(() => {
-          setSuccess(res.data.status)
+          setSuccess(res.data.message)
           setIsLoading(false);
-          navigate(`/monthly-budget?message=${encodeURIComponent(formData.month + ' ' + formData.year + ' ' + 'budget started!')}`);
-        }, 2000);
+          setTimeout(() => {
+            navigate('/monthly-budget')
+          }, 3000)
+          //navigate(`/monthly-budget?message=${encodeURIComponent(formData.month + ' ' + formData.year + ' ' + 'budget started!')}`);
+        }, 5000);
       } else {
             setError(formData.month + ' ' + formData.year + ' ' + 'budget already exists')
             setIsLoading(false) 
@@ -80,8 +88,8 @@ export default function CreateMonthlyBudget() {
     <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh'}}>
         <div className='row justify-content-center' style={{ paddingTop: '30px' }}>
           
-          <div className='text-success text-center'>
-              {success && success}
+          <div className='text-center' style={{ color: '#28a745' }}>
+              <p style={{ fontSize: '20px', fontWeight: 'bold'}}>{success && success}</p>
           </div>
 
           {isLoading &&

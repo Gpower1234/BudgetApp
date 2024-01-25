@@ -48,9 +48,19 @@ export default function DeleteExpense() {
         axios.get('http://localhost:5001/expenseID/'+id)
         .then(res => {
           if (res.data.status === 'success') {
-            setGetData(res.data.Result)
+            return setGetData(res.data.Result)
           } if (res.data.status === 'Error') {
-            setError(res.data.Error)
+            setError('SERVER ERROR')
+            setTimeout(() => {
+              navigate('/budget-detail/' + month + '/' + year)
+            }, 3000)
+          } if (res.data.status === 'null') {
+              return setError('No expenditure with such ID found for this user')
+          } else {
+            setError('SERVER ERROR')
+            setTimeout(() => {
+              navigate('/budget-detail/' + month + '/' + year)
+            }, 3000)
           }
         }).catch(err => {'Error fetching data'})
       }, [])

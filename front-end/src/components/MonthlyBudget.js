@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 export default function MonthlyBudget() {
   const [data, setData] = useState([]);
   const [visibleItems, setVisibleItems] = useState(10)
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
-  const successMessage = query.get('message')
+  //const location = useLocation();
+  //const query = new URLSearchParams(location.search);
+  //const successMessage = query.get('message')
+
 
   const loadMoreData = () => {
     setVisibleItems(prevVisibleItems => prevVisibleItems + 10);
@@ -24,15 +25,15 @@ export default function MonthlyBudget() {
     }).catch(err => {'Error fetching data'})
   }, [])
   return (
-    <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh'}}>
-      {successMessage && 
+    <div style={{ background: 'linear-gradient(to bottom, #001f3f, #000)'}}>
+      {/*{successMessage && 
       <div className='alert alert-success alert-dismissible fade show text-center'>
         <p style={{ color: 'green' }}>{successMessage}</p>
         <button type='button' className='btn-close' data-bs-dismiss='alert'></button>
       </div>
-      }
+      }*/}
       <div className='container'>
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '50px', paddingBottom: '50px'}}>
           <h5 style={{fontFamily: 'monospace', color: '#fff', fontWeight: 'bold', margin: '0 0 50px 0'}}>BUDGETS</h5>
           <table className='table table responsive' style={{ borderCollapse: 'separate', borderSpacing: '15px'}}>
             <thead>

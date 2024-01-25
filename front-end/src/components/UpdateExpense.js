@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 
 export default function UpdateExpense() {
@@ -12,6 +12,8 @@ export default function UpdateExpense() {
     item_name: '',
     amount: '',
   })
+
+  const navigate = useNavigate();
 
   const [getData, setGetData] = useState({
     item_name: '',
@@ -33,9 +35,16 @@ export default function UpdateExpense() {
         setTimeout(() => {
           setIsLoading(false)
           setSuccess('Expense Updated')
+          setTimeout(() => {
+            navigate('/')
+          }, 3000)
         }, 3000)
       } else {
         setIsLoading(false)
+        setError('Server error')
+        setTimeout(() => {
+          navigate('/')
+        }, 3000)
         setError('Error updating expense')
       }
     })
@@ -45,9 +54,19 @@ export default function UpdateExpense() {
     axios.get('http://localhost:5001/expenseID/'+id)
     .then(res => {
       if (res.data.status === 'success') {
-        setGetData(res.data.Result)
+        return setGetData(res.data.Result)
       } if (res.data.status === 'Error') {
-        setError(res.data.Error)
+          setError('SERVER ERROR')
+          setTimeout(() => {
+            navigate('/')
+          }, 3000)
+      } if (res.data.status === 'null') {
+          return setError('No expenditure with such ID found for this user')
+      } else {
+        setError('SERVER ERROR')
+        setTimeout(() => {
+          navigate('/')
+        }, 3000)
       }
     }).catch(err => {'Error fetching data'})
   }, [])
@@ -70,16 +89,14 @@ export default function UpdateExpense() {
         }
 
         {success && 
-          <div className='alert alert-success alert-dismissible fade show'>
+          <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
             {success && <p className='text-success text-center'>{success}</p>}
-            {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
           </div>
         }
 
         {error && 
-          <div className='alert alert-danger alert-dismissible fade show'>
+          <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
             {error && <p className='text-danger text-center'>{error}</p>}
-            {/*<button type='button' className='btn-close' data-bs-dismiss='alert'></button>*/}
           </div>
         }
 
