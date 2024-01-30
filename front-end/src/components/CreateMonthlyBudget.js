@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import { useAuth } from './AuthContext';
 
@@ -109,6 +109,10 @@ export default function CreateMonthlyBudget() {
               {error && error}
             </div>
             <br /> 
+            <div className='text-center'>
+              <p style={{ color: '#fff' }}>Wants to create a budget for an event such as birthday, wedding etc? <Link style={{ color: '#87ceeb', textDecoration: 'none' }} to='/create-defined-budget'></Link></p>
+            </div>
+            <br />
             <form onSubmit={handleSubmit}>
               <div className='mb-3'>
                 <select className='form-select form-select-sm' value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}>

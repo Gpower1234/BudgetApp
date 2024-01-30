@@ -26,6 +26,8 @@ dotenv.config();
 
 const app = express();
 
+{/*
+
 if (process.env.NODE_ENV === 'production') {
     app.use(enforce.HTTPS({ trustProtoHeader: true }))
 }
@@ -39,7 +41,7 @@ app.use(helmet())
 
 // Middleware for response compression 
 app.use(compression())
-
+*/}
 // Connect to the database
 
 const con = mysql.createConnection({
@@ -66,7 +68,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const router = express.Router()
+//const router = express.Router()
 
 // Session configuration (adjust as needed)
 const sessionStore = new (MySQLStore(session))({
@@ -164,7 +166,6 @@ app.get('/auth/google/callback', passport.authenticate('google', { failureRedire
     res.redirect(`/?token=${token}`);
     }
 );
-
 
 // Check authentication status route
 app.get('/api/check-auth', (req, res) => {

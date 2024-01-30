@@ -18,6 +18,8 @@ import UpdateExpense from './components/UpdateExpense';
 import DeleteExpense from './components/DeleteExpense';
 import FAQ from './components/FAQ';
 import { AuthProvider, useAuth } from './components/AuthContext';
+import CreateDefinedBudget from './components/CreateDefinedBudget';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   const { user } = useAuth();
@@ -34,6 +36,7 @@ function App() {
           <Route path='/dashboard' element={user ? <Dashboard /> : <SignIn /> } />
           <Route path='/create-monthly-budget' element={user ? <CreateMonthlyBudget /> : <SignIn />} />
           <Route path='/monthly-budget' element={user ? <MonthlyBudget /> : <SignIn /> } />
+          <Route path='/create-defined-budget' element={user ? <CreateDefinedBudget /> : <SignIn /> } />
           <Route path='/budget-detail/:month/:year' element={user ? <BudgetDetail /> : <SignIn /> }  />
           <Route path='/add-budget' element={user ? <AddBudget /> : <SignIn /> }  />
           <Route path='/add-expenses' element={user ? <AddExpenses /> : <SignIn /> }  />
@@ -42,6 +45,8 @@ function App() {
           <Route path='/update-expense/:id' element={user ? <UpdateExpense /> : <SignIn /> }  />
           <Route path='/delete-expense/:id' element={user ? <DeleteExpense /> : <SignIn /> } />
           <Route path='/FAQ' element={<FAQ />} />
+          {/* Catch all route for any unmatched URL */}
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </AuthProvider>
     </Router> 
