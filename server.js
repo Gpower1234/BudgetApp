@@ -1,9 +1,6 @@
 import express from 'express';
-// 
 import path from 'path';
 import cors from 'cors';
-import AdminJSExpress from '@adminjs/express';
-import AdminJS from 'adminjs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
@@ -13,36 +10,12 @@ import cookieParser from 'cookie-parser';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import GoogleStrategy from 'passport-google-oauth20';
-import enforce from 'express-sslify';
 import dotenv from 'dotenv';
-//import { access } from 'fs';
-//import { profile } from 'console';
 import MySQLStore from 'express-mysql-session'
-
-import helmet from 'helmet';
-import compression from 'compression';
 
 dotenv.config();
 
 const app = express();
-
-{/*
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(enforce.HTTPS({ trustProtoHeader: true }))
-}
-
-
-// Set NODE_ENV to 'production'
-app.set('env', 'production');
-
-// Middleware for enhanced security
-app.use(helmet())
-
-// Middleware for response compression 
-app.use(compression())
-*/}
-// Connect to the database
 
 const con = mysql.createConnection({
     host: process.env.HOST,
@@ -192,26 +165,6 @@ app.get('/logout', (req, res, next) => {
     });
 });
 
-
-// ADMIN PANEL SETUP
-const adminJsOptions = new AdminJS({
-    rootPath: '/admin',
-    // Example resource for a 'users' table
- 
-    //resource: User, 
-    options: {
-    properties: {
-        name: {type: 'string'},
-        email: {type: 'string'},
-        createdAt: {isVisible: true},
-        updatedAt: {isVisible: false},
-    }
-},
-});
-
-const route = AdminJSExpress.buildRouter(adminJsOptions);
-
-app.use(adminJsOptions.options.rootPath, route)
 
 // Generate a secret key
 const secretkey = crypto.randomBytes(64).toString('hex');
