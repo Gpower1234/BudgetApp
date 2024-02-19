@@ -17,11 +17,16 @@ dotenv.config();
 
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename)
+
+{/*
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
+    port: process.env.PORT
 })
 
 con.connect(err => {
@@ -31,10 +36,6 @@ con.connect(err => {
         console.log("Database connected")
     }
 })
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename)
-
 
 app.use(cors());
 app.use(cookieParser());
@@ -359,6 +360,8 @@ app.delete('/expense-delete/:id', (req, res) => {
         return res.json({status: "success"})
     })
 });
+
+*/}
 
 // Define the root directory for static files based on the environment 
 const staticFilesRoot = process.env.NODE_ENV === 'production' ? '/var/task/front-end/build' : path.join(__dirname, 'front-end/build');
