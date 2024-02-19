@@ -361,10 +361,10 @@ app.delete('/expense-delete/:id', (req, res) => {
 });
 
 
-app.use(express.static(path.join(__dirname, 'front-end/build')));
+app.use(express.static(path.join('front-end/build')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'))
+    res.sendFile(path.join('front-end/build', 'index.html'))
 })
 
 const port = 5001; //choose a port number
