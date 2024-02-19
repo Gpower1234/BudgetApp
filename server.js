@@ -363,9 +363,23 @@ app.delete('/expense-delete/:id', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'front-end/build')));
 
+
+app.get('*', function (req, res) {
+    res.sendFile(
+        path.join(__dirname, 'front-end/build/index.html'),
+        function (err) {
+            res.status(500).send(err)
+        }
+    )
+})
+
+{/*
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'))
 })
+
+*/}
 
 const port = 5001; //choose a port number
 
