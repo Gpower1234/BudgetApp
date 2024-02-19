@@ -365,7 +365,7 @@ app.delete('/expense-delete/:id', (req, res) => {
 
 // Define the root directory for static files based on the environment 
 const staticFilesRoot = process.env.NODE_ENV === 'production' ? '/var/task/front-end/build' : path.join(__dirname, 'front-end/build');
-
+console.log('DIR NAME:', __dirname)
 app.use(express.static(staticFilesRoot));
 
 app.get('*', function (req, res) {
