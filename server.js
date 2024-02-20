@@ -20,6 +20,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
 
+//const rootDirectory = path.resolve(__dirname, '..')
+
+
 {/*
 const con = mysql.createConnection({
     host: process.env.HOST,
@@ -367,6 +370,13 @@ app.delete('/expense-delete/:id', (req, res) => {
 const staticFilesRoot = process.env.NODE_ENV === 'production' ? '/var/task/front-end/build' : path.join(__dirname, 'front-end/build');
 console.log('DIR NAME:', __dirname)
 app.use(express.static(staticFilesRoot));
+console.log('static files root:', staticFilesRoot)
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(staticFilesRoot, 'front-end/build', 'index.html'))
+})
+
+{/*
 
 app.get('*', function (req, res) {
     res.sendFile(
@@ -376,8 +386,6 @@ app.get('*', function (req, res) {
         }
     )
 })
-
-{/*
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'))
