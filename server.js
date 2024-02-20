@@ -373,7 +373,7 @@ app.use(express.static(staticFilesRoot));
 console.log('static files root:', staticFilesRoot)
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(staticFilesRoot, 'front-end/build', 'index.html'))
+    res.sendFile(path.join(staticFilesRoot, 'index.html'))
 })
 
 {/*
