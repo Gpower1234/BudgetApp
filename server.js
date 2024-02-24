@@ -23,13 +23,12 @@ const __dirname = dirname(__filename)
 //const rootDirectory = path.resolve(__dirname, '..')
 
 
-{/*
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    port: process.env.PORT
+    //port: process.env.PORT
 })
 
 con.connect(err => {
@@ -363,8 +362,6 @@ app.delete('/expense-delete/:id', (req, res) => {
         return res.json({status: "success"})
     })
 });
-
-*/}
 
 // Define the root directory for static files based on the environment 
 console.log('DIR NAME:', __dirname)

@@ -118,33 +118,33 @@ export const Home = () => {
          
         <h4>Overview</h4>
         <section className='container'>
-          <p>
+          <p style={{ textAlign: 'justify' }}>
             Planning how we spend our income by allocating funds to every expenses prior to the time of execution is what most
             people desire.
           </p>
-          <p>
+          <p style={{ textAlign: 'justify' }}>
             This Site helps you in keeping track of your monthly expenses base on your scheduled budget. By recording all your
             daily expenses, you will keep track on what your funds what spent on at the end of each month.
           </p>
         </section>
 
         <h4>Budget Detail Data Sample</h4>
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <div style={{width: '200px', height: '200px', color: '#fff'}}>
+        <div className='chart'>
+          <div className='doughnut-chart'>
             <Doughnut options={doughnutOption} data={doughnutChartData} style={{ color: '#fff' }} />
             <p style={{ fontSize: '12px', display: 'flex', justifyContent: 'center'}}>Expenses Total Amount: $100</p>
             <p style={{ fontSize: '12px', display: 'flex', justifyContent: 'center'}}>Balance: $50</p>
           </div>
 
-          <div style={{width: '300px', height: '300px', color: '#fff'}}>
+          <div className='bar-chart'>
             <Bar options={option} data={barChartData} />
             <p style={{ fontSize: '12px', display: 'flex', justifyContent: 'center'}}>Budget Total Amount: $180</p>
             <p style={{ fontSize: '12px', display: 'flex', justifyContent: 'center'}}>Expenses Total Amount: $150</p>
           </div>
        </div>
 
-       <h4>Monthly Data Overview Sample</h4>
-       <div className='container' style={{ display: 'flex', justifyContent: 'center', maxWidth: '450px', marginBottom: '80px'}}>
+       <h4 className='monthly'>Monthly Data Overview Sample</h4>
+       <div className='container, monthly-chart'>
           <Bar
             data={{
               // Name of the variables on x-axis for each bar

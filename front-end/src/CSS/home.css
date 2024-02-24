@@ -17,12 +17,72 @@
     }
 }
 
+.chart {
+    display: flex;
+    justify-content: center;
+}
+
+.doughnut-chart {
+    width: 200px;
+    height: 200px;
+    color: #fff;
+}
+
+.bar-chart {
+    width: 300px;
+    height: 300px;
+    color: #fff;
+}
+
+.monthly-chart {
+    display: flex;
+    justify-content: center;
+    max-width: 450px;
+    margin-bottom: 80px;
+}
+
 
 @media (max-width: 767px) {
+    .dashboard-container {
+        div h4 {
+            font-size: 20px;
+        }
+    }
+
     p {
+        margin-left: 50px;
+        margin-right: 50px;
         font-size: 16px;
     }
     .dashboard-container h4 {
         font-size: 18px;
+    }
+
+    .doughnut-chart {
+        display: grid;
+        justify-content: center; 
+    }
+
+    .bar-chart {
+        display: block;
+        align-items: center;
+        margin-top: 120px;
+        
+    }
+
+    .chart {
+        display: grid;
+        justify-content: center;
+    }
+
+    .monthly {
+        letter-spacing: -1px;
+    }
+
+    .monthly-chart {
+        display: flex;
+        justify-content: center;
+        max-width: 400px;
+        margin-bottom: 80px;
     }
 }

@@ -17,7 +17,7 @@ const Navbar = () => {
     
     return (
         <Nav>
-            <Logo href='/'>BudgetApp</Logo>
+            <Logo href='/'>Budget</Logo>
             <MenuLinks isOpen={isOpen} className='menulinks'>
                 <MenuLink className='link'>
                     <Link to='/'  className='style'>Home</Link>
