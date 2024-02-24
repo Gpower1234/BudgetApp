@@ -42,7 +42,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+{/*
 // Session configuration (adjust as needed)
 const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
@@ -57,7 +57,7 @@ const sessionStore = new (MySQLStore(session))({
 
 // Set up session
 app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
-
+*/}
 // Initialize Passport
 app.use(passport.initialize());
 //app.use(passport.session())
