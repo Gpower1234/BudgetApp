@@ -61,7 +61,7 @@ app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: t
 */}
 // Initialize Passport
 app.use(passport.initialize());
-app.use(passport.session())
+//app.use(passport.session())
 
 
 app.use(cors())
