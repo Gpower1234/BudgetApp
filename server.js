@@ -20,9 +20,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
 
-//const rootDirectory = path.resolve(__dirname, '..')
-
-
+{/*
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
