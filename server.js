@@ -361,6 +361,8 @@ app.delete('/expense-delete/:id', (req, res) => {
     })
 });
 
+*/}
+
 // Define the root directory for static files based on the environment 
 console.log('DIR NAME:', __dirname)
 app.use(express.static(path.join(__dirname, 'front-end/build')));
