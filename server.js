@@ -54,11 +54,11 @@ const sessionStore = new (MySQLStore(session))({
     checkExpirationInterval: 900000,
     expiration: 86400000
 }, con)
-*/}
+
 
 // Set up session
 app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
-
+*/}
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session())
