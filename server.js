@@ -20,7 +20,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
 
-{/*
+
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
@@ -43,7 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //const router = express.Router()
-
+{/*
 // Session configuration (adjust as needed)
 const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
@@ -54,6 +54,7 @@ const sessionStore = new (MySQLStore(session))({
     checkExpirationInterval: 900000,
     expiration: 86400000
 }, con)
+*/}
 
 // Set up session
 app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
@@ -361,7 +362,6 @@ app.delete('/expense-delete/:id', (req, res) => {
     })
 });
 
-*/}
 
 // Define the root directory for static files based on the environment 
 console.log('DIR NAME:', __dirname)
