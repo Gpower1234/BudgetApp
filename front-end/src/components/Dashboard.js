@@ -147,16 +147,17 @@ export const Dashboard = () => {
   return (
     <div className='dashboard-container' style={{ height: '100vh' }}>
 
-      <div style={{ display: 'flex', flexDirection: 'column'}}>
-        <div className='' style={{ display: 'flex', justifyContent: 'center', marginBottom: '50px'}}>
-            <h6 style={{ color: '#87ceeb'}}>{greeting}, {user.name}</h6>
+      <div className='sub-dashboard'>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '50px'}}>
+            <h6 style={{ color: '#87ceeb'}}>{greeting}, godspower</h6>
         </div>
 
-          <div style={{width: '500px', height: '400px', margin: 'auto'}}>
+          <div className='bar-chart'>
             <h6 style={{display: 'flex', justifyContent: 'center'}}>Budget Overview</h6>
             <Bar
               data={chartData}
               options={{
+                responsive: true,
                 scales: {
                   x: {
                     ticks: {

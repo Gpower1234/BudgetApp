@@ -33,7 +33,7 @@ export default function MonthlyBudget() {
       </div>
       }*/}
       <div className='container'>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '50px', paddingBottom: '50px'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '50px', paddingBottom: '5px', height: '100vh'}}>
           <h5 style={{fontFamily: 'monospace', color: '#fff', fontWeight: 'bold', margin: '0 0 50px 0'}}>BUDGETS</h5>
           <table className='table table responsive' style={{ borderCollapse: 'separate', borderSpacing: '15px'}}>
             <thead>

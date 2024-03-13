@@ -33,7 +33,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-out" element={<Logout />} />
-          <Route path='/dashboard' element={user ? <Dashboard /> : <SignIn /> } />
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/create-monthly-budget' element={user ? <CreateMonthlyBudget /> : <SignIn />} />
           <Route path='/monthly-budget' element={user ? <MonthlyBudget /> : <SignIn /> } />
           <Route path='/create-defined-budget' element={user ? <CreateDefinedBudget /> : <SignIn /> } />

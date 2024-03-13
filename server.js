@@ -42,7 +42,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-{/*
 // Session configuration (adjust as needed)
 const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
@@ -57,10 +56,10 @@ const sessionStore = new (MySQLStore(session))({
 
 // Set up session
 app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
-*/}
+
 // Initialize Passport
 app.use(passport.initialize());
-//app.use(passport.session())
+app.use(passport.session())
 
 
 app.use(cors())
@@ -69,7 +68,7 @@ passport.use(new GoogleStrategy(
     {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: 'http://localhost:5001/auth/google/callback',
+        callbackURL: 'https://amused-beanie-duck.cyclic.app/auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
         const {id, displayName, emails} = profile;

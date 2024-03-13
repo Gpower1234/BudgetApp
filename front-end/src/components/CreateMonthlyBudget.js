@@ -108,10 +108,10 @@ export default function CreateMonthlyBudget() {
             <div className='text-danger text-center mb-4'>
               {error && error}
             </div>
-            <br /> 
-            <div className='text-center'>
+             
+            {/*<div className='text-center'>
               <p style={{ color: '#fff' }}>Wants to create a budget for an event such as birthday, wedding etc? <Link style={{ color: '#87ceeb', textDecoration: 'none' }} to='/create-defined-budget'></Link></p>
-            </div>
+        </div>*/}
             <br />
             <form onSubmit={handleSubmit}>
               <div className='mb-3'>
