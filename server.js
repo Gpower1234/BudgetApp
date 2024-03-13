@@ -46,7 +46,7 @@ app.use(express.urlencoded({ extended: true }));
 const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
     user: process.env.USER,
-    password: '',
+    password: process.env.PASSWORD,
     database: process.env.DATABASE,
     clearExpired: true,
     checkExpirationInterval: 900000,
