@@ -20,13 +20,14 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
 
+const NODE_ENV = "production"
 
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    //port: process.env.PORT
+    port: process.env.PORT
 })
 
 con.connect(err => {
@@ -43,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session configuration (adjust as needed)
-const sessionStore = new (MySQLStore(session))({
+{/*const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -51,11 +52,11 @@ const sessionStore = new (MySQLStore(session))({
     clearExpired: true,
     checkExpirationInterval: 900000,
     expiration: 86400000
-}, con)
+}, con)*/}
 
 
 // Set up session
-app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
+//app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
 
 // Initialize Passport
 app.use(passport.initialize());
