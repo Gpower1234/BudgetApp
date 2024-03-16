@@ -44,7 +44,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Session configuration (adjust as needed)
-{/*const sessionStore = new (MySQLStore(session))({
+const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -52,11 +52,11 @@ app.use(express.urlencoded({ extended: true }));
     clearExpired: true,
     checkExpirationInterval: 900000,
     expiration: 86400000
-}, con)*/}
+}, con)
 
 
 // Set up session
-//app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
+app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: true, store: sessionStore}));
 
 // Initialize Passport
 app.use(passport.initialize());
