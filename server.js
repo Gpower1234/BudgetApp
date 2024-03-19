@@ -23,10 +23,10 @@ const __dirname = dirname(__filename)
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
-    //password: process.env.PASSWORD,
+    password: process.env.PASSWORD,
     password: '',
     database: process.env.DATABASE,
-    //port: process.env.DBPORT
+    port: process.env.DBPORT
 })
 
 con.connect(err => {
