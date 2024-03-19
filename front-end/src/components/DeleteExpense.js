@@ -27,7 +27,7 @@ export default function DeleteExpense() {
 
         setShowDeleteConfirmation(false)
     
-        axios.delete('http://localhost:5001/expense-delete/'+id)
+        axios.delete(process.env.REACT_APP_API_URL + '/expense-delete/'+id)
         .then(res => {
           if (res.data.status === 'success') {
             setTimeout(() => {
@@ -45,7 +45,7 @@ export default function DeleteExpense() {
       }
 
       useEffect(() => {
-        axios.get('http://localhost:5001/expenseID/'+id)
+        axios.get(process.env.REACT_APP_API_URL + '/expenseID/'+id)
         .then(res => {
           if (res.data.status === 'success') {
             return setGetData(res.data.Result)

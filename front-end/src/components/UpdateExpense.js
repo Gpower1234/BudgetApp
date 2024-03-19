@@ -29,7 +29,7 @@ export default function UpdateExpense() {
 
     setIsLoading(true)
 
-    axios.put('http://localhost:5001/update-expense/'+id, expenseData)
+    axios.put(process.env.REACT_APP_API_URL + '/update-expense/'+id, expenseData)
     .then(res => {
       if (res.data.status === 'success') {
         setTimeout(() => {
@@ -51,7 +51,7 @@ export default function UpdateExpense() {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:5001/expenseID/'+id)
+    axios.get(process.env.REACT_APP_API_URL + '/expenseID/'+id)
     .then(res => {
       if (res.data.status === 'success') {
         return setGetData(res.data.Result)
@@ -120,11 +120,6 @@ export default function UpdateExpense() {
           </form>
 
         </div>
-        
-
-
-        
-
       </div>
     </div>
   )

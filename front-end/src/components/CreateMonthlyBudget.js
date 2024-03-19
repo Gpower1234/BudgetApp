@@ -66,7 +66,7 @@ export default function CreateMonthlyBudget() {
       currency: symbol
     }
 
-    axios.post('http://localhost:5001/create-budget', formData)
+    axios.post(process.env.REACT_APP_API_URL + '/create-budget', formData)
     .then(res => {
       if (res.data.status === 'success') {
         setTimeout(() => {

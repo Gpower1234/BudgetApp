@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import '../CSS/MonthlyBudget.css';
 
 export default function MonthlyBudget() {
   const [data, setData] = useState([]);
@@ -9,13 +10,12 @@ export default function MonthlyBudget() {
   //const query = new URLSearchParams(location.search);
   //const successMessage = query.get('message')
 
-
   const loadMoreData = () => {
     setVisibleItems(prevVisibleItems => prevVisibleItems + 10);
   }
 
   useEffect(() => {
-    axios.get('http://localhost:5001/monthly-budgets')
+    axios.get(process.env.REACT_APP_API_URL + '/monthly-budgets')
     .then(res => {
       if (res.data.status === 'success') {
         setData(res.data.Result)
@@ -25,7 +25,7 @@ export default function MonthlyBudget() {
     }).catch(err => {'Error fetching data'})
   }, [])
   return (
-    <div style={{ background: 'linear-gradient(to bottom, #001f3f, #000)'}}>
+    <div className='dashboard-container'>
       {/*{successMessage && 
       <div className='alert alert-success alert-dismissible fade show text-center'>
         <p style={{ color: 'green' }}>{successMessage}</p>

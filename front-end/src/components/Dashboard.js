@@ -59,7 +59,7 @@ export const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-    axios.get('http://localhost:5001/budget')
+    axios.get(process.env.REACT_APP_API_URL + '/budget')
     .then(res => {
       console.log('useEffect initiated')
       if (res.data.status === 'success') {
@@ -71,7 +71,7 @@ export const Dashboard = () => {
       } 
     }).catch(err => {'Error fetching data'})
 
-    axios.get('http://localhost:5001/expenses')
+    axios.get(process.env.REACT_APP_API_URL + '/expenses')
     .then(res => {
       if (res.data.status === 'success') {
         setExpenses(res.data.Result)
@@ -145,11 +145,11 @@ export const Dashboard = () => {
   }
   
   return (
-    <div className='dashboard-container' style={{ height: '100vh' }}>
+    <div className='dashboard-container'>
 
       <div className='sub-dashboard'>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '50px'}}>
-            <h6 style={{ color: '#87ceeb'}}>{greeting}, godspower</h6>
+            <h6 style={{ color: '#87ceeb'}}>{greeting}, {user.name}</h6>
         </div>
 
           <div className='bar-chart'>

@@ -10,8 +10,6 @@ import { Logout } from './components/Logout';
 import CreateMonthlyBudget from './components/CreateMonthlyBudget';
 import MonthlyBudget from './components/MonthlyBudget';
 import BudgetDetail from './components/BudgetDetail';
-import AddBudget from './components/AddBudget';
-import AddExpenses from './components/AddExpenses';
 import UpdateBudget from './components/UpdateBudget';
 import DeleteBudget from './components/DeleteBudget';
 import UpdateExpense from './components/UpdateExpense';
@@ -33,13 +31,11 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<Register />} />
           <Route path="/sign-out" element={<Logout />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard' element={user ? <Dashboard /> : <SignIn />} />
           <Route path='/create-monthly-budget' element={user ? <CreateMonthlyBudget /> : <SignIn />} />
           <Route path='/monthly-budget' element={user ? <MonthlyBudget /> : <SignIn /> } />
           <Route path='/create-defined-budget' element={user ? <CreateDefinedBudget /> : <SignIn /> } />
-          <Route path='/budget-detail/:month/:year' element={user ? <BudgetDetail /> : <SignIn /> }  />
-          <Route path='/add-budget' element={user ? <AddBudget /> : <SignIn /> }  />
-          <Route path='/add-expenses' element={user ? <AddExpenses /> : <SignIn /> }  />
+          <Route path='/budget-detail/:month/:year' element={user ? <BudgetDetail /> : <SignIn />}  />
           <Route path='/update-budget/:id' element={user ? <UpdateBudget /> : <SignIn /> }  />
           <Route path='/delete-budget/:id' element={user ? <DeleteBudget /> : <SignIn /> }  />
           <Route path='/update-expense/:id' element={user ? <UpdateExpense /> : <SignIn /> }  />

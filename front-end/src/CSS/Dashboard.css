@@ -6,6 +6,8 @@
     align-items: center;
     color: #fff;
     font-size: 24px;
+    padding-top: 50px;
+    padding-bottom: 110px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 31, 63, 0.7), 0 0 20px rgba(0, 31, 63, 0.5), rgba(0, 31, 63, 0.3);
 
@@ -46,7 +48,8 @@
     }
 
     .dashboard-container {
-        padding-top: 5px;
+        padding-top: 50px;
+        padding-bottom: 500px;
     }
     
 }

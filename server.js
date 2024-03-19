@@ -20,14 +20,13 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename)
 
-const NODE_ENV = "production"
-
 const con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
-    password: process.env.PASSWORD,
+    //password: process.env.PASSWORD,
+    password: '',
     database: process.env.DATABASE,
-    port: process.env.DBPORT
+    //port: process.env.DBPORT
 })
 
 con.connect(err => {
@@ -69,7 +68,7 @@ passport.use(new GoogleStrategy(
     {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: 'https://amused-beanie-duck.cyclic.app/auth/google/callback',
+        callbackURL: process.env.BASE_URL + '/auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
         const {id, displayName, emails} = profile;
@@ -363,27 +362,13 @@ app.delete('/expense-delete/:id', (req, res) => {
 
 
 // Define the root directory for static files based on the environment 
-console.log('DIR NAME:', __dirname)
 app.use(express.static(path.join(__dirname, 'front-end/build')));
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'))
 })
 
-{/*
-
-app.get('*', function (req, res) {
-    res.sendFile(
-        path.join(staticFilesRoot, 'index.html'),
-        function (err) {
-            res.status(500).send(err)
-        }
-    )
-})
-
-*/}
-
-const port = 5001; //choose a port number
+const port = process.env.PORT; //choose a port number
 
 // Start the server
 app.listen(port, () => {

@@ -177,7 +177,7 @@ export default function BudgetDetail() {
 
     setIsLoading(true)
 
-    axios.post('http://localhost:5001/add-budget', dataToSend)
+    axios.post(process.env.REACT_APP_API_URL + '/add-budget', dataToSend)
     .then(res => {
       console.log('Budget Data', dataToSend)
       if (res.data.status === 'success') {
@@ -208,7 +208,7 @@ export default function BudgetDetail() {
 
     setIsLoading(true)
 
-    axios.post('http://localhost:5001/add-expenses', dataToSend)
+    axios.post(process.env.REACT_APP_API_URL + '/add-expenses', dataToSend)
     .then(res => {
       if (res.data.status === 'success') {
         setTimeout(() => {
@@ -234,7 +234,7 @@ export default function BudgetDetail() {
 
   
   useEffect(() => {
-    axios.get('http://localhost:5001/budget/'+month+'/'+year)
+    axios.get(process.env.REACT_APP_API_URL + '/budget/'+month+'/'+year)
     .then(res => {
       if (res.data.status === 'success') {
         setBudgetDetail(res.data.Result)
@@ -243,7 +243,7 @@ export default function BudgetDetail() {
       }
     }).catch(err => {'Error fetching data'});
 
-    axios.get('http://localhost:5001/expenses/'+month+'/'+year)
+    axios.get(process.env.REACT_APP_API_URL + '/expenses/'+month+'/'+year)
     .then(res => {
       if (res.data.status === 'success') {
         setExpensesDetail(res.data.Result)
@@ -252,7 +252,7 @@ export default function BudgetDetail() {
       }
     }).catch(err => {'Error fetching data'});
 
-    axios.get('http://localhost:5001/monthly-budget/'+month+'/'+year)
+    axios.get(process.env.REACT_APP_API_URL + '/monthly-budget/'+month+'/'+year)
     .then(res => {
       if (res.data.status === 'success') {
         setMonthlyBudgetDetail(res.data.Result)
@@ -265,7 +265,7 @@ export default function BudgetDetail() {
   
 
   return (
-    <div style={{ background: 'linear-gradient(to bottom, #001f3f, #000)' }}>
+    <div style={{ background: 'linear-gradient(to bottom, #001f3f, #000)', paddingBottom: '150px' }}>
       {isLoading &&
         <div className='col-md-3 col-8' style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(255, 255, 255, 0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', alignContent: 'center', zIndex: '9999'}}>
           <div style={{ display: 'grid', placeItems: 'center' }}>

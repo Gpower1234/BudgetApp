@@ -29,7 +29,7 @@ export default function UpdateBudget() {
 
     setIsLoading(true)
 
-    axios.put('http://localhost:5001/update-budget/'+id, budgetData)
+    axios.put(process.env.REACT_APP_API_URL + '/update-budget/'+id, budgetData)
     .then(res => {
       if (res.data.status === 'success') {
         setTimeout(() => {
@@ -54,7 +54,7 @@ export default function UpdateBudget() {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:5001/budgetID/'+id)
+    axios.get(process.env.REACT_APP_API_URL + '/budgetID/'+id)
     .then(res => {
       if (res.data.status === 'success') {
         return setGetData(res.data.Result)

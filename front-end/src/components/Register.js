@@ -5,7 +5,7 @@ import '../CSS/Login.css';
 
 export const Register = () => {
   const handleGoogleSignUp = () => {
-    window.location.href = 'http://localhost:5001/auth/google';
+    window.location.href = process.env.REACT_APP_API_URL + '/auth/google';
     //axios.post('http://localhost:5001/api/googlesignup')
   }
 

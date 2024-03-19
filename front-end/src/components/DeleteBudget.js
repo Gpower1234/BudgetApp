@@ -27,7 +27,7 @@ export default function DeleteBudget() {
 
         setShowDeleteConfirmation(false)
     
-        axios.delete('http://localhost:5001/budget-delete/'+id)
+        axios.delete(process.env.REACT_APP_API_URL + '/budget-delete/'+id)
         .then(res => {
           if (res.data.status === 'success') {
             setTimeout(() => {
@@ -45,7 +45,7 @@ export default function DeleteBudget() {
       }
 
       useEffect(() => {
-        axios.get('http://localhost:5001/budgetID/'+id)
+        axios.get(process.env.REACT_APP_API_URL + '/budgetID/'+id)
         .then(res => {
           if (res.data.status === 'success') {
             return setGetData(res.data.Result)
