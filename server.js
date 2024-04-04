@@ -28,13 +28,13 @@ const con = mysql.createConnection({
     port: process.env.DBPORT
 })
 
-con.connect(err => {
-    if (err){
-        console.log("Error connecting to the database", err)
-    } else {
-        console.log("Database connected")
+con.connect(function(err) {
+    if (err) {
+        console.error('Error connecting to database:', err);
+        return;
     }
-})
+    console.log('Connected to MySQL database');
+});
 
 app.use(cors());
 app.use(cookieParser());
@@ -43,6 +43,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Session configuration (adjust as needed)
 const sessionStore = new (MySQLStore(session))({
+    expiration: 86400000, // Adjust expiration as needed
+    createDatabaseTable: true // Create session table if not exists
+}, con)
+
+{/*const sessionStore = new (MySQLStore(session))({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -50,7 +55,7 @@ const sessionStore = new (MySQLStore(session))({
     clearExpired: true,
     checkExpirationInterval: 900000,
     expiration: 86400000
-}, con)
+}, con)*/}
 
 
 // Set up session
