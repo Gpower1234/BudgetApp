@@ -27,6 +27,7 @@ function App() {
       <Navbar />
       <AuthProvider>
         <Routes>
+          <Route exact path="/testing" element={<Logout />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<Register />} />

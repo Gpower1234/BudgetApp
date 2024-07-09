@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 //import backgroundImage from '../images/image9.jpg';
 import '../CSS/home.css';
 
@@ -12,7 +12,6 @@ export const Home = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const successMessage = query.get('message');
-  const navigate = useNavigate();
 
   const balance = '150'
   const totalExpensesAmount = '1200'
@@ -103,14 +102,6 @@ export const Home = () => {
     ]
   }
 
-  const handleClic = () => {
-    console.log('Handle click initiated')
-    navigate('/create-monthly-budget')
-  }
-
-  function handleClick() {
-    navigate('/create-monthly-budget')
-  }
 
   return (
     <div className='dashboard-container'>
@@ -193,7 +184,7 @@ export const Home = () => {
           />
        </div>
        <div className='container' style={{ display: 'grid', placeItems: 'center', marginTop: '50px', marginBottom: '150px'}}>
-          <p>Start monitoring your monthly expenses and keep it inline with your Budget.</p>
+          <p>Create budget, start by creating a monthly budget template. Once the template has been created, you can begin by adding budgets on a form. The form comprises of the name of the item being budgeted for and the amount.</p>
           <button className='btn' style={{ fontSize: '14px', backgroundColor: '#87ceeb' }}>
             <Link to='/create-monthly-budget' style={{ textDecoration: 'none', color: '#000' }}>Create Budget</Link>
           </button>

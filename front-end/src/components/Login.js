@@ -1,11 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import '../CSS/Login.css';
 import { useAuth } from './AuthContext';
 
 export const SignIn = () => {
 
   const auth = useAuth();
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/sign-up')
+  }
 
   return (
     <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh' }}> 
@@ -29,11 +35,7 @@ export const SignIn = () => {
       </div>
       <div style={{ paddingTop: '50px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
         <p>Don't have an account? </p>
-        <button className='btn btn' style={{ backgroundColor: '#fff', paddingBottom: '0px' }}>
-          <Link to='/sign-up' style={{ textDecoration: 'none' }}>
-            <p style={{ fontSize: '14px', color: '#000' }}>Sign Up</p>
-          </Link>
-        </button>
+        <button onClick={handleClick} className='btn' style={{ backgroundColor: '#87ceeb', color: '#001f3f'}}>Sign Up</button>
       </div>
     </div>
     

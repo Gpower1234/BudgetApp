@@ -1,12 +1,17 @@
-import React, {useState} from 'react'
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import '../CSS/Login.css';
 
 export const Register = () => {
   const handleGoogleSignUp = () => {
     window.location.href = process.env.REACT_APP_API_URL + '/auth/google';
     //axios.post('http://localhost:5001/api/googlesignup')
+  }
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/sign-in')
   }
 
   return (
@@ -30,12 +35,13 @@ export const Register = () => {
         </button>
       </div>
       <div style={{ paddingTop: '50px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: '#fff' }}>
-        <p>Created an account before ?</p>
-        <button className='btn' style={{ backgroundColor: '#fff', paddingBottom: '0px' }}>
+        <p>Created an account before?</p>
+        {/*<button className='btn' style={{ backgroundColor: '#fff', paddingBottom: '0px' }}>
           <Link to='/sign-in' style={{ textDecoration: 'none' }}>
             <p style={{ fontSize: '14px', color: '#000' }}>Sign In</p>
           </Link>
-        </button>
+  </button>*/}
+        <button onClick={handleClick} className='btn' style={{ backgroundColor: '#87ceeb', color: '#001f3f'}}>Sign In</button>
       </div>
     </div>
   )
