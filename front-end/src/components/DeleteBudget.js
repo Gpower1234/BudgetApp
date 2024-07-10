@@ -63,7 +63,7 @@ export default function DeleteBudget() {
             }, 3000)
           }
         }).catch(err => {'Error fetching data'})
-      }, [])
+      }, [id, month, year, navigate])
   return (
     <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh' }}>
         {isLoading &&
@@ -89,7 +89,7 @@ export default function DeleteBudget() {
         }
 
         {showDeleteConfirmation && (
-        <div style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)' }} >
+        <div style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'linear-gradient(to bottom, #001f3f, #000)' }} >
           <div style={{ backgroundColor: '#87ceeb', padding: '20px', borderRadius: '5px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.3', textAlign: 'center'}}>
             <p>Are you sure you want to delete this Budget</p>
             <button onClick={handleConfirmDelete} className='btn btn-primary' style={{ fontSize: '10px', color: '#fff', marginRight: '5px' }}>Yes</button>

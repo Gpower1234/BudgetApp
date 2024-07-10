@@ -260,7 +260,7 @@ export default function BudgetDetail() {
         setError(res.data.Error)
       }
     }).catch(err => {'Error fetching data'})
-  }, [])
+  }, [month, year])
 
   
 
@@ -374,7 +374,7 @@ export default function BudgetDetail() {
                     </div>
                     
                     <div className='mb-3'>
-                      <input style={{ backgroundColor: '#87ceeb' }} type='number' className='form-control form-control-sm' id='amount' placeholder={'Estimated amount' + ' ' + currency} onChange={e => setBudgetData({...budgetData, estimated_amount: e.target.value})}/>
+                      <input style={{ backgroundColor: '#87ceeb' }} type='number' className='form-control form-control-sm' id='amount' placeholder={`Estimated amount ${currency}`} onChange={e => setBudgetData({...budgetData, estimated_amount: e.target.value})}/>
                     </div>
 
                     <div className='text-center'>
@@ -455,7 +455,7 @@ export default function BudgetDetail() {
                 </div>
                 
                 <div className='mb-3'>
-                    <input style={{ backgroundColor: '#87ceeb' }} type='number' className='form-control form-control-sm' id='amount' placeholder={'Amount Spent' + ' ' + currency} onChange={e => setExpensesData({...expensesData, amount: e.target.value})}/>
+                    <input style={{ backgroundColor: '#87ceeb' }} type='number' className='form-control form-control-sm' id='amount' placeholder={`Amount Spent ${currency}`} onChange={e => setExpensesData({...expensesData, amount: e.target.value})}/>
                 </div>
 
                 <div className='text-center'>

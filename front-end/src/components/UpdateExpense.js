@@ -69,7 +69,7 @@ export default function UpdateExpense() {
         }, 3000)
       }
     }).catch(err => {'Error fetching data'})
-  }, [])
+  }, [id, navigate])
 
   return (
     <div style={{ position: 'relative', background: 'linear-gradient(to bottom, #001f3f, #000)', height: '100vh'}}>

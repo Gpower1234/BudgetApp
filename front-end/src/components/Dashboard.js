@@ -82,7 +82,7 @@ export const Dashboard = () => {
     }).catch(err => {'Error fetching data'})
 
     
-  }, []);
+  }, [setDataFetched]);
 
   const groupBudgetData = () => {
     const groupedBudgetData = {};

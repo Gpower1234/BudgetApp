@@ -78,7 +78,7 @@ export default function CreateMonthlyBudget() {
           //navigate(`/monthly-budget?message=${encodeURIComponent(formData.month + ' ' + formData.year + ' ' + 'budget started!')}`);
         }, 5000);
       } else {
-            setError(formData.month + ' ' + formData.year + ' ' + 'budget already exists')
+            setError(`${formData.month} ${formData.year} budget already exists`)
             setIsLoading(false) 
       }
     })
