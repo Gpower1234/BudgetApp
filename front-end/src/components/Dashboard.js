@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
 import '../CSS/Dashboard.css';
 import '../CSS/home.css';
 import axios from 'axios';
@@ -35,9 +34,9 @@ export const Dashboard = () => {
 
   const [budget, setBudget] = useState([])
   const [expenses, setExpenses] = useState([])
-  const [ error, setError] = useState('')
+  //const [ error, setError] = useState('')
   //const [chartData, setChartData] = useState([])
-  const [dataFetched, setDataFetched] = useState(false); 
+  const [ setDataFetched] = useState(false); 
 
   const currency = budget.length > 0 ? budget[0].currency : '';
 
@@ -157,7 +156,6 @@ export const Dashboard = () => {
             <Bar
               data={chartData}
               options={{
-                responsive: true,
                 scales: {
                   x: {
                     ticks: {

@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('')
+  const [setErrorMessage] = useState('')
 
 
   useEffect(() => {

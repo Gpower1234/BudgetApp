@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 //import backgroundImage from '../images/image9.jpg';
 import '../CSS/home.css';
 
@@ -9,9 +9,9 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, T
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, ArcElement, Tooltip, Legend);
 
 export const Home = () => {
-  const location = useLocation();
-  const query = new URLSearchParams(location.search);
-  const successMessage = query.get('message');
+  //const location = useLocation();
+  //const query = new URLSearchParams(location.search);
+  //const successMessage = query.get('message');
 
   const balance = '150'
   const totalExpensesAmount = '1200'

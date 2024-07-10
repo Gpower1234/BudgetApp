@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../CSS/MonthlyBudget.css';
 
 export default function MonthlyBudget() {

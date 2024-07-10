@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
+    "dev": "nodemon server.js",
     "build": "cd front-end && npm install && npm run build",
     "postinstall": "npm run build"
   },

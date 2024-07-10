@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MoonLoader } from 'react-spinners';
 import { useAuth } from './AuthContext';
 
@@ -14,7 +14,7 @@ export default function CreateMonthlyBudget() {
   const [months, setMonths] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
   const [symbol, setSymbol] = useState('')
-  const [message, setMessage] = useState('')
+  //const [message, setMessage] = useState('')
 
   const { user } = useAuth();
 
