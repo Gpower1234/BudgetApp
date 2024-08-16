@@ -366,11 +366,12 @@ app.delete('/expense-delete/:id', (req, res) => {
 
 
 // Define the root directory for static files based on the environment 
-app.use(express.static(path.join(__dirname, 'front-end/build')));
+app.use(express.static(path.join(__dirname, '../front-end/build')));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'front-end/build', 'index.html'))
+    res.sendFile(path.join(__dirname, '../front-end/build', 'index.html'))
 })
+
 
 const port = process.env.PORT; //choose a port number
 
