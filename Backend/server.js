@@ -72,7 +72,7 @@ passport.use(new GoogleStrategy(
     {
         clientID: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: process.env.BASE_URL + '/auth/google/callback',
+        callbackURL: process.env.BASE_URL + 'auth/google/callback',
     },
     (accessToken, refreshToken, profile, done) => {
         const {id, displayName, emails} = profile;
