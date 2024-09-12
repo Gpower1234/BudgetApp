@@ -35,12 +35,12 @@ export default function MonthlyBudget() {
       <div className='container'>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '50px', paddingBottom: '5px', height: '100vh'}}>
           <h5 style={{fontFamily: 'monospace', color: '#fff', fontWeight: 'bold', margin: '0 0 50px 0'}}>BUDGETS</h5>
-          <table className='table table responsive' style={{ borderCollapse: 'separate', borderSpacing: '15px'}}>
+          <table className='table table responsive' style={{ borderCollapse: 'separate', borderSpacing: '2px'}}>
             <thead>
               <tr style={{ color: '#87ceeb'}}>
-                <th className='col-lg' style={{ fontSize: '12px'}}>YEAR</th>
-                <th className='col-lg' style={{ fontSize: '12px'}}>MONTH</th>
-                <th className='col-lg' style={{ fontSize: '12px'}} >DETAILS</th>
+                <th className='col-lg' style={{ fontSize: '12px', backgroundColor: '#87ceeb'}}>YEAR</th>
+                <th className='col-lg' style={{ fontSize: '12px', backgroundColor: '#87ceeb'}}>MONTH</th>
+                <th className='col-lg' style={{ fontSize: '12px', backgroundColor: '#87ceeb'}} >DETAILS</th>
               </tr>
             </thead>
             <tbody style={{ color: '#aaa' }}>
@@ -58,7 +58,7 @@ export default function MonthlyBudget() {
         
         </table>
         {visibleItems < data.length && (
-          <button onClick={loadMoreData} className='btn' style={{ backgroundColor: '#fff', fontSize: '12px', fontWeight: 'bold'}}>Load More</button>
+          <button onClick={loadMoreData} className='btn' style={{ backgroundColor: '#87ceeb', fontSize: '12px', fontWeight: 'bold'}}>Load More</button>
         )}
       
         </div>
