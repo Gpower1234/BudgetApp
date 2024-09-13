@@ -16,6 +16,8 @@ export default function CreateMonthlyBudget() {
   const [symbol, setSymbol] = useState('')
   //const [message, setMessage] = useState('')
 
+  const API_URL = process.env.REACT_APP_API_URL
+
   const { user } = useAuth();
 
   const navigate = useNavigate();
@@ -66,17 +68,19 @@ export default function CreateMonthlyBudget() {
       currency: symbol
     }
 
-    axios.post(process.env.REACT_APP_API_URL + '/create-budget', formData)
+    axios.post(API_URL + '/create-budget', formData)
+    console.log('API:', API_URL)
     .then(res => {
+      
       if (res.data.status === 'success') {
-        setTimeout(() => {
-          setSuccess(res.data.message)
-          setIsLoading(false);
-          setTimeout(() => {
-            navigate('/monthly-budget')
-          }, 3000)
+        
+        setSuccess(res.data.message)
+          
+          
+        navigate('/monthly-budget')
+         
           //navigate(`/monthly-budget?message=${encodeURIComponent(formData.month + ' ' + formData.year + ' ' + 'budget started!')}`);
-        }, 5000);
+        
       } else {
             setError(`${formData.month} ${formData.year} budget already exists`)
             setIsLoading(false) 
