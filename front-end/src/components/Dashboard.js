@@ -147,12 +147,12 @@ export const Dashboard = () => {
     <div className='dashboard-container'>
 
       <div className='sub-dashboard'>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '50px'}}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <h6 style={{ color: '#87ceeb'}}>{greeting}, {user.name}</h6>
         </div>
 
           <div className='bar-chart'>
-            <h6 style={{display: 'flex', justifyContent: 'center'}}>Budget Overview</h6>
+            <h6 style={{display: 'flex', justifyContent: 'center'}}>Your Budget/Expenses Overview</h6>
             <Bar
               data={chartData}
               options={{

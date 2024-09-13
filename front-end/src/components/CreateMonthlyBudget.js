@@ -21,7 +21,7 @@ export default function CreateMonthlyBudget() {
   const navigate = useNavigate();
 
   const currencyOptions = [
-    {value: 'Select', Symbol: 'Currency'},
+    {value: '', Symbol: 'Currency'},
     {value: 'AUD', Symbol: '$'},
     {value: 'EUR', Symbol: '€'},
     {value: 'GBP', Symbol: '£'},
@@ -143,7 +143,7 @@ export default function CreateMonthlyBudget() {
 
               <div className='mb-3'>
                 <select className='form-select form-select-sm' value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
-                  <option value="">Select Month</option>
+                  <option value="">Month</option>
                       {months.map((month, index) => (
                           <option key={index} value={index}>
                               {month}
@@ -156,14 +156,14 @@ export default function CreateMonthlyBudget() {
                 <select className='form-select form-select-sm' aria-label='elect month' onChange={e => setSymbol(e.target.value)}>
                   {currencyOptions.map((currency) => {
                     return <option key={currency.value} value={currency.Symbol}>
-                      {currency.Symbol} - {currency.value}
+                      {currency.Symbol} {currency.value}
                     </option>
                   })}
                 </select>
               </div>
 
               <div className='text-center'>
-                <button type='submit' className='btn btn-primary'>Start</button>
+                <button type='submit' className='btn' style={{ backgroundColor: '#001f3f', color: '#fff'}}>Start</button>
               </div>
             </form>
           </div> 
