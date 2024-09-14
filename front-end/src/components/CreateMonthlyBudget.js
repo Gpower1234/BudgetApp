@@ -59,7 +59,7 @@ export default function CreateMonthlyBudget() {
     event.preventDefault();
 
     // show the spinner
-    setIsLoading(true)
+    {/*setIsLoading(true)*/}
 
     const formData = {
       user: user.email,
