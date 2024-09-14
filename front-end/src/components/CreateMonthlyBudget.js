@@ -16,7 +16,7 @@ export default function CreateMonthlyBudget() {
   const [symbol, setSymbol] = useState('')
   //const [message, setMessage] = useState('')
 
-  const API_URL = process.env.REACT_APP_API_URL
+  const API_URL = 'https://budget-app-alpha-five.vercel.app'
 
   const { user } = useAuth();
 
