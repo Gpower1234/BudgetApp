@@ -65,9 +65,6 @@ app.use(session({ secret: process.env.SECRET, resave: true, saveUninitialized: t
 app.use(passport.initialize());
 app.use(passport.session())
 
-
-app.use(cors())
-
 passport.use(new GoogleStrategy(
     {
         clientID: process.env.CLIENT_ID,
@@ -182,6 +179,7 @@ app.post('/create-budget', (req, res) => {
     con.query(checkIfExistQuery, [user, month, year], (error, results) => {
         if (error) {
             //throw error;
+            console.error("Error in query:", error);
             return res.json({status: 'Query error'})
         }
 
@@ -194,14 +192,17 @@ app.post('/create-budget', (req, res) => {
             con.query(insertQuery, [ user, year, month, currency ], (insertError, insertResults) => {
                 if (insertError) {
                     //throw insertError;
+                    console.error("Error in insertion:", insertError)
                     return res.json({status: 'error'})
                 } else {
                     return res.json({status: "success", message: month + ' ' + year + ' ' + 'budget started'})
+                    {/*return res.json({status: "success", message: `${month} ${year} budget started`});*/}
                 }
             })
         }
     })
 });
+
 
 app.post('/add-budget', (req, res) => {
     const sql = "INSERT INTO budget (`user`, `name`, `currency`, `est_amount`, `month`, `year`) VALUES (?)";
