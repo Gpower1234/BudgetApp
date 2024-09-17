@@ -32,6 +32,8 @@ export const Dashboard = () => {
   
   const { user } = useAuth();
 
+   const API_URL = 'https://budget-app-alpha-five.vercel.app'
+
   const [budget, setBudget] = useState([])
   const [expenses, setExpenses] = useState([])
   //const [ error, setError] = useState('')
@@ -58,7 +60,7 @@ export const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + '/budget')
+    axios.get(API_URL + '/budget')
     .then(res => {
       console.log('useEffect initiated')
       if (res.data.status === 'success') {
@@ -70,7 +72,7 @@ export const Dashboard = () => {
       } 
     }).catch(err => {'Error fetching data'})
 
-    axios.get(process.env.REACT_APP_API_URL + '/expenses')
+    axios.get(API_URL + '/expenses')
     .then(res => {
       if (res.data.status === 'success') {
         setExpenses(res.data.Result)

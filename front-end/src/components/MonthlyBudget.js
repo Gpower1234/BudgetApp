@@ -10,12 +10,14 @@ export default function MonthlyBudget() {
   //const query = new URLSearchParams(location.search);
   //const successMessage = query.get('message')
 
+  const API_URL = 'https://budget-app-alpha-five.vercel.app'
+
   const loadMoreData = () => {
     setVisibleItems(prevVisibleItems => prevVisibleItems + 10);
   }
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_API_URL + '/monthly-budgets')
+    axios.get(API_URL + '/monthly-budgets')
     .then(res => {
       if (res.data.status === 'success') {
         setData(res.data.Result)
