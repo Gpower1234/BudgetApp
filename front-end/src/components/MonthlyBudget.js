@@ -45,13 +45,14 @@ export default function MonthlyBudget() {
                 <th className='col-lg' style={{ fontSize: '12px', backgroundColor: '#87ceeb'}} >DETAILS</th>
               </tr>
             </thead>
-            <tbody style={{ color: '#aaa' }}>
+
+            <tbody>
               {data.slice(0, visibleItems).map((budget, index) => {
                 return <tr key={index}>
-                    <td>{budget.year}</td>
-                    <td>{budget.month}</td>
-                    <td>
-                      <Link to={'/budget-detail/' + budget.month + '/' + budget.year} style={{textDecoration: 'none', color: '#00f'}}>view more</Link>
+                    <td style={{backgroundColor: '#87ceeb', color: '#000'}}>{budget.year}</td>
+                    <td style={{backgroundColor: '#87ceeb', color: '#000'}}>{budget.month}</td>
+                    <td style={{backgroundColor: '#87ceeb'}}>
+                      <Link to={'/budget-detail/' + budget.month + '/' + budget.year} style={{textDecoration: 'none', color: '#000'}}>view more</Link>
                     </td>
                 </tr>
               })}

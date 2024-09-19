@@ -10,13 +10,15 @@ export default function CreateMonthlyBudget() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [years, setYears] = useState([]);
+  
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [months, setMonths] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth())
   const [symbol, setSymbol] = useState('')
   //const [message, setMessage] = useState('')
 
-  const API_URL = 'https://budget-app-alpha-five.vercel.app'
+  //const API_URL = 'https://budget-app-alpha-five.vercel.app'
+  const API_URL = ' http://localhost:5001'
 
   const { user } = useAuth();
 
@@ -119,7 +121,7 @@ export default function CreateMonthlyBudget() {
             <br />
             <form onSubmit={handleSubmit}>
               <div className='mb-3'>
-                <select className='form-select form-select-sm' value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}>
+                <select className='form-select form-select-sm' style={{ backgroundColor: '#001f3f', color: '#fff'}} value={selectedYear} onChange={(e) => setSelectedYear(parseInt(e.target.value, 10))}>
                       {years.map((year) => (
                           <option key={year} value={year}>
                               {year}
@@ -146,7 +148,7 @@ export default function CreateMonthlyBudget() {
                 </div>*/}
 
               <div className='mb-3'>
-                <select className='form-select form-select-sm' value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
+                <select className='form-select form-select-sm' style={{ backgroundColor: '#001f3f', color: '#fff'}} value={selectedMonth} onChange={(e) => setSelectedMonth(parseInt(e.target.value))}>
                   <option value="">Month</option>
                       {months.map((month, index) => (
                           <option key={index} value={index}>
@@ -157,7 +159,7 @@ export default function CreateMonthlyBudget() {
               </div>
               
               <div className='mb-3'>
-                <select className='form-select form-select-sm' aria-label='elect month' onChange={e => setSymbol(e.target.value)}>
+                <select className='form-select form-select-sm' style={{ backgroundColor: '#001f3f', color: '#fff'}} aria-label='elect month' onChange={e => setSymbol(e.target.value)}>
                   {currencyOptions.map((currency) => {
                     return <option key={currency.value} value={currency.Symbol}>
                       {currency.Symbol} {currency.value}
