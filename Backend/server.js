@@ -185,6 +185,7 @@ app.post('/create-budget', (req, res) => {
 
         if (results.length > 0) {
             // Month and Year combination already exists, send an error response
+            console.log('Month and Year combination already exists, send an error response')
             return res.json({status: "error"})
         } else {
             // if not exists, perform the insertion
@@ -195,6 +196,7 @@ app.post('/create-budget', (req, res) => {
                     console.error("Error in insertion:", insertError)
                     return res.json({status: 'error'})
                 } else {
+                    console.log('BUDGET created')
                     return res.json({status: "success", message: month + ' ' + year + ' ' + 'budget started'})
                     {/*return res.json({status: "success", message: `${month} ${year} budget started`});*/}
                 }
