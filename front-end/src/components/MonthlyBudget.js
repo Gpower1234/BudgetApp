@@ -26,6 +26,7 @@ export default function MonthlyBudget() {
       } 
     }).catch(err => {'Error fetching data'})
   }, [])
+  
   return (
     <div className='dashboard-container'>
       {/*{successMessage && 
