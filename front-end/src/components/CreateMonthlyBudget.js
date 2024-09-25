@@ -17,8 +17,7 @@ export default function CreateMonthlyBudget() {
   const [symbol, setSymbol] = useState('')
   //const [message, setMessage] = useState('')
 
-  //const API_URL = 'https://budget-app-alpha-five.vercel.app'
-  const API_URL = ' http://localhost:5001'
+  const API_URL = process.env.REACT_APP_API_URL
 
   const { user } = useAuth();
 
@@ -61,7 +60,7 @@ export default function CreateMonthlyBudget() {
     event.preventDefault();
 
     // show the spinner
-    {/*setIsLoading(true)*/}
+    setIsLoading(true)
 
     const formData = {
       user: user.email,
@@ -71,18 +70,15 @@ export default function CreateMonthlyBudget() {
     }
 
     axios.post(API_URL + '/create-budget', formData)
-    console.log('API:', API_URL)
     .then(res => {
-      
       if (res.data.status === 'success') {
-        
-        setSuccess(res.data.message)
-          
-          
-        navigate('/monthly-budget')
-         
-          //navigate(`/monthly-budget?message=${encodeURIComponent(formData.month + ' ' + formData.year + ' ' + 'budget started!')}`);
-        
+        setTimeout(() => {
+          setIsLoading(false)
+          setSuccess(res.data.message)
+          navigate('/monthly-budget') 
+          //navigate(`/monthly-budget?message=${encodeURIComponent(formData.month + ' ' + formData.year + ' ' + 'budget started!')}`);  
+        }, 3000)
+       
       } else {
             setError(`${formData.month} ${formData.year} budget already exists`)
             setIsLoading(false) 
